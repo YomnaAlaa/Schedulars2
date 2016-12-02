@@ -91,12 +91,41 @@ public class Priority {
         return -1;
     }
 
+    static List<process> temp = new ArrayList<process>();
+    public static void writeLabels(){
+    for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblNames.setText(ss.rw.lblNames.getText() + temp.get(i).name + "   ");
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + temp.get(i).duration + "   ");
+        }
+            for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblPriorities.setText(ss.rw.lblPriorities.getText() + temp.get(i).priority + "   ");
+        }
+        
+    }
+    
     public static int NonPreemptivePriority(List<process> pp, int n) {
         Collections.sort(pp, process.getComparator(process.Parameter.priority));
         List<process> finished = new ArrayList();
         int counter = 0;
         List<process> temp1 = new ArrayList();
         int ssum = sum(pp, n);
+        for (int i = 0; i < n; i++) {
+            int d = pp.get(i).duration;
+            int a = pp.get(i).whencome;
+            int p = pp.get(i).priority;
+            int in = pp.get(i).index;
+            String na = pp.get(i).name;
+            process o = new process();
+            o.setDuration(d);
+            o.setWhenCome(a);
+            o.setPriotrity(p);
+            o.setName(na);
+            o.setInedex(in);
+
+            temp.add(o);
+        }
         while (counter < ssum) {
             for (int i = 0; i < pp.size(); i++) {
                 if (pp.get(i).whencome <= counter) {
@@ -129,6 +158,7 @@ public class Priority {
         }
         System.out.println("average waiting time" + (double) (sum / finished.size()));
         ss.rw.lblWaiting.setText((sum / n) + "");
+        writeLabels();
         return 5;
     }
 
@@ -210,7 +240,7 @@ public class Priority {
         int ssum = sum(pp, n);
         int priority = getMaxPriority(pp, pp.size()) + 1;
         int index = -1;
-        List<process> temp = new ArrayList<process>();
+        
 
         List<process> toBeSent = new ArrayList<process>();
         for (int i = 0; i < n; i++) {
@@ -397,6 +427,7 @@ public class Priority {
         }
         System.out.println("Average Waiting Time= " + (double) (sum / n));
         ss.rw.lblWaiting.setText((sum / n) + "");
+        writeLabels();
         return 4;
     }
 

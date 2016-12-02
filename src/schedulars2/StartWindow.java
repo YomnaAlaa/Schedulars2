@@ -33,6 +33,8 @@ public class StartWindow extends javax.swing.JFrame {
         btnStart = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         jCompoBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "FCFS", "SJF Preemptive", "SJF Non-Preemptive", "Priority Preemptive", "Priority Non-Preemptive", "Round Robin" }));
 

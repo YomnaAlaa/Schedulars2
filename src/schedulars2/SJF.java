@@ -60,6 +60,17 @@ public class SJF {
         }
         return summ;
     }
+    
+    static List<process> temp = new ArrayList();
+    public static void writeLabels(){
+    for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblNames.setText(ss.rw.lblNames.getText() + temp.get(i).name + "   ");
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + temp.get(i).duration + "   ");
+        }
+        
+    }
 
     public static int findIndexByDuration(List<process> pp, int m, int n) {
         for (int i = 0; i < n; i++) {
@@ -145,7 +156,21 @@ public class SJF {
         Collections.sort(pp, process.getComparator(process.Parameter.duration));
         List<process> finished = new ArrayList();
         int counter = 0;
-        List<process> temp1 = new ArrayList();
+        for (int i = 0; i < n; i++) {
+            int d = pp.get(i).duration;
+            int a = pp.get(i).whencome;
+            int p = pp.get(i).priority;
+            int in = pp.get(i).index;
+            String na = pp.get(i).name;
+            process o = new process();
+            o.setDuration(d);
+            o.setWhenCome(a);
+            o.setPriotrity(p);
+            o.setName(na);
+            o.setInedex(in);
+
+            temp.add(o);
+        }
         int ssum = sum(pp, n);
         while (counter < ssum) {
             for (int i = 0; i < pp.size(); i++) {
@@ -176,6 +201,7 @@ public class SJF {
         }
         System.out.println("average waiting time" + (sum / finished.size()));
         ss.rw.lblWaiting.setText((sum / finished.size()) + "");
+        writeLabels();
         return 3;
     }
 
@@ -207,7 +233,7 @@ public class SJF {
         int ssum = sum(pp, n);
         int duration = getMaxDuration(pp, pp.size()) + 1;
         int index = -1;
-        List<process> temp = new ArrayList<process>();
+        //List<process> temp = new ArrayList<process>();
 
         List<process> toBeSent = new ArrayList<process>();
         for (int i = 0; i < n; i++) {
@@ -413,6 +439,8 @@ public class SJF {
         }
         System.out.println("Average Waiting Time= " + (double) (sum / n));
         ss.rw.lblWaiting.setText((sum / n) + "");
+        
+        writeLabels();
         return 2;
     }
 

@@ -45,6 +45,7 @@ public class MyFrame extends javax.swing.JFrame {
         btnAddProcess = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         btnResult.setText("Show");
         btnResult.addActionListener(new java.awt.event.ActionListener() {

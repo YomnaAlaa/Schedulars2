@@ -40,12 +40,38 @@ public class FCFS {
         return summ;
     }
     static Schedulars2 ss = new Schedulars2();
+    
+    static List<process> temp = new ArrayList<process>();
+    public static void writeLabels(){
+    for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblNames.setText(ss.rw.lblNames.getText() + temp.get(i).name + "   ");
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + temp.get(i).duration + "   ");
+        }
+        
+    }
 
     public static int FCFS(List<process> pp, int n) {
         int counter1 = 0;
         int ssum = sum(pp, n);
         int j = 0;
         List<process> finished = new ArrayList();
+        for (int i = 0; i < n; i++) {
+            int d = pp.get(i).duration;
+            int a = pp.get(i).whencome;
+            int p = pp.get(i).priority;
+            int in = pp.get(i).index;
+            String na = pp.get(i).name;
+            process o = new process();
+            o.setDuration(d);
+            o.setWhenCome(a);
+            o.setPriotrity(p);
+            o.setName(na);
+            o.setInedex(in);
+
+            temp.add(o);
+        }
         Collections.sort(pp, process.getComparator(process.Parameter.whencome));
         while (counter1 < ssum && j < pp.size()) {
 
@@ -85,6 +111,7 @@ public class FCFS {
         }
         System.out.println("average waiting time" + (sum / pp.size()));
         ss.rw.lblWaiting.setText((sum / pp.size()) + "");
+        writeLabels();
         return 1;
     }
 }

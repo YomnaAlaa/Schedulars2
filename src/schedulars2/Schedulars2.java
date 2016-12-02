@@ -48,7 +48,6 @@ public class Schedulars2 {
 //
 //    }
     public static void GantttChart(List<process> pp, int n, int index) {
-
         List<String> processes = new ArrayList();
         List<String> timer = new ArrayList();
         rw = new resultWindow(index);
@@ -84,6 +83,8 @@ public class Schedulars2 {
         }
 
     }
+    
+    
 
     public static int getMinNum(int[] arr, int n) {
         int min = arr[0];

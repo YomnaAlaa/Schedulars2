@@ -55,6 +55,18 @@ public class RoundRoubin {
         }
         return summ;
     }
+    static List<process> temp = new ArrayList<process>();
+    
+    public static void writeLabels(int q){
+    for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblNames.setText(ss.rw.lblNames.getText() + temp.get(i).name + "   ");
+        }
+        for (int i = 0; i < temp.size(); i++) {
+            ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + temp.get(i).duration + "   ");
+        }
+            ss.rw.lblQ.setText(q + "");
+        
+    }
 
     public static int RoundRobin(List<process> pp, int n, int q) {
         int summ = sum(pp, n);
@@ -147,6 +159,7 @@ public class RoundRoubin {
         GantttChart(li, li.size(),6);
         System.out.println("Average Waiting Time= " + (sum / n));
         ss.rw.lblWaiting.setText((sum / n) + "");
+        writeLabels(q);
         return 6;
     }
 }
