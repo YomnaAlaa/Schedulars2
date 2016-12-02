@@ -15,6 +15,7 @@ public class resultWindow extends javax.swing.JFrame {
      * Creates new form resultWindow
      */
     public resultWindow() {
+        
         initComponents();
     }
 
@@ -74,7 +75,7 @@ public class resultWindow extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addComponent(btnAnother, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                         .addComponent(btnSchedular, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85))
                     .addGroup(layout.createSequentialGroup()
@@ -113,14 +114,15 @@ public class resultWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnotherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnotherActionPerformed
-        StartWindow sw = new StartWindow();
-        initComponents();
-        sw.setVisible(true);
+//        MyFrame sw = new MyFrame();
+//        initComponents();
+//        sw.setVisible(true);
         
     }//GEN-LAST:event_btnAnotherActionPerformed
 
     private void btnSchedularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSchedularActionPerformed
-        // TODO add your handling code here:
+        StartWindow sw = new StartWindow();
+        sw.setVisible(true);
     }//GEN-LAST:event_btnSchedularActionPerformed
 
     /**
