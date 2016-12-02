@@ -132,7 +132,11 @@ public class MyFrame extends javax.swing.JFrame {
     Schedulars2 ss = new Schedulars2();
     StartWindow sw = new StartWindow();
     private void btnResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultActionPerformed
-
+        if (ss.p.isEmpty()){
+            JOptionPane.showMessageDialog(new JFrame(), "No processes entered");
+                return;
+        }
+        
         switch (index) {
             case 1:
                 ss.fs.FCFS(ss.p, ss.p.size());
@@ -153,6 +157,8 @@ public class MyFrame extends javax.swing.JFrame {
             case 6:
                 ss.rr.RoundRobin(ss.p, ss.p.size(), ss.q);
                 break;
+            default:
+                
 
         }
         this.setVisible(false);

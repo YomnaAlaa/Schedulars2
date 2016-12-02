@@ -141,7 +141,7 @@ public class SJF {
 //        System.out.println("average waiting time" + (sum/n));
 //    }
     public static int NonPreemptiveSJF(List<process> pp, int n) {
-        ss.rw.setVisible(true);
+        //       ss.rw.setVisible(true);
         Collections.sort(pp, process.getComparator(process.Parameter.duration));
         List<process> finished = new ArrayList();
         int counter = 0;
@@ -156,10 +156,19 @@ public class SJF {
                     finished.get(finished.size() - 1).endTime = counter;
                     pp.remove(pp.get(i));
                     break;
+
+                } else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
+                    process ppp = new process();
+                    ppp.setDuration(0);
+                    ppp.setName("NOP");
+                    ssum++;
+                    counter++;
+                    ppp.setendTime(counter);
+                    finished.add(ppp);
                 }
             }
         }
-        GantttChart(finished, finished.size(),3);
+        GantttChart(finished, finished.size(), 3);
         int sum = 0, processWaitingTime;
         for (int i = 0; i < finished.size(); i++) {
             processWaitingTime = abs(finished.get(i).startTime - finished.get(i).whencome);
@@ -189,7 +198,7 @@ public class SJF {
     }
 
     public static int PreemptiveSJF(List<process> pp, int n) {
-        ss.rw.setVisible(true);
+        //   ss.rw.setVisible(true);
         Collections.sort(pp, process.getComparator(process.Parameter.duration));
         List<process> finished = new ArrayList();
         int counter = 0;
@@ -287,16 +296,16 @@ public class SJF {
 //                            finished.add(o);
                             finished.add(p);
                             p1.setDuration(1);
-                       // p1.setendTime(counter);
-                        toBeSent.add(p1);
+                            // p1.setendTime(counter);
+                            toBeSent.add(p1);
                         }
-                    }else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)){
-                        toBeSent.get(toBeSent.size()-1).duration++;
+                    } else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
+                        toBeSent.get(toBeSent.size() - 1).duration++;
                         //toBeSent.get(toBeSent.size()-1).endTime = counter;
                     }
                     counter++;
                     pp.get(i).duration--;
-                    toBeSent.get(toBeSent.size()-1).setendTime(counter);
+                    toBeSent.get(toBeSent.size() - 1).setendTime(counter);
 
                 } else if (pp.get(i).whencome <= counter && pp.get(i).duration > duration && pp.get(0) == pp.get(i)) {
                     if (!finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
@@ -316,14 +325,42 @@ public class SJF {
                         p1.setDuration(1);
                         //p1.setendTime(counter);
                         toBeSent.add(p1);
-                    }else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)){
-                        toBeSent.get(toBeSent.size()-1).duration++;
+                    } else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
+                        toBeSent.get(toBeSent.size() - 1).duration++;
                         //toBeSent.get(toBeSent.size()-1).endTime = counter;
                     }
                     counter++;
                     pp.get(i).duration--;
-                    toBeSent.get(toBeSent.size()-1).setendTime(counter);
+                    toBeSent.get(toBeSent.size() - 1).setendTime(counter);
+
+                } //                pp.get(i).whencome <= counter && pp.get(i).duration <= duration
+                //                pp.get(i).whencome <= counter && pp.get(i).duration > duration && pp.get(0) == pp.get(i)
+                else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
+                    if (toBeSent.size()>0 && pp.get(toBeSent.get(toBeSent.size() - 1).index).duration > 0) {
+                    } else {
+                        process ppp = new process();
+                        ppp.setDuration(0);
+                        ppp.setName("NOP");
+                        ppp.setStartTime(counter);
+                        ppp.setWhenCome(counter);
+                        ssum++;
+                        counter++;
+                        ppp.setendTime(counter);
+                        //finished.add(ppp);
+                        toBeSent.add(ppp);
+                    }
                 }
+//                else if (i == pp.size()-1 && pp.get(i).whencome > counter) {
+//                    process ppp = new process();
+//                    ppp.setDuration(0);
+//                    ppp.setName("NOP");
+//                    ppp.setStartTime(counter);
+//                    ppp.setWhenCome(counter);
+//                    ssum++;
+//                    counter++;
+//                    ppp.setendTime(counter);
+//                    toBeSent.add(ppp);
+//                }
 //                }else if(i == pp.size()-1 && pp.get(i).whencome>counter){
 //                        int d = 0;
 //                        int a = counter;
@@ -339,6 +376,7 @@ public class SJF {
 //                        finished.add(o);
 //                        counter++;
 //                }
+
                 if (pp.get(i).duration == 0) {
                     temp.get(pp.get(i).index).endTime = counter;
                     pp.remove(pp.get(i));
@@ -365,7 +403,7 @@ public class SJF {
 //        }
         double sum = 0;
 //        GantttChart(finished, finished.size());
-        GantttChart(toBeSent, toBeSent.size(),2);
+        GantttChart(toBeSent, toBeSent.size(), 2);
         for (int i = 0; i < n; i++) {
             int mm = temp.get(i).endTime;
             int nn = temp.get(i).duration;

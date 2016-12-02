@@ -48,7 +48,7 @@ public class Schedulars2 {
 //
 //    }
     public static void GantttChart(List<process> pp, int n, int index) {
-        
+
         List<String> processes = new ArrayList();
         List<String> timer = new ArrayList();
         rw = new resultWindow(index);
@@ -65,11 +65,14 @@ public class Schedulars2 {
         timer.add("0");
         for (int i = 1; i < processes.size(); i++) {
             if (processes.get(i).equals("|")) {
-                timer.add(pp.get(counter).endTime+"");
+                timer.add(pp.get(counter).endTime + "");
                 counter++;
-            }else if(processes.get(i).contains("P") || processes.get(i).contains("p")){
+            } else if (processes.get(i).startsWith("P") || processes.get(i).startsWith("p")) {
                 timer.add(" " + " ");
-        }else{
+            }else if (processes.get(i).contains("NOP")){
+                timer.add(" " + " "+" "+" "+" ");
+            } 
+            else {
                 timer.add(" ");
             }
         }
@@ -81,8 +84,6 @@ public class Schedulars2 {
         }
 
     }
-    
-    
 
     public static int getMinNum(int[] arr, int n) {
         int min = arr[0];

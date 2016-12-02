@@ -9,7 +9,8 @@ import static schedulars2.Schedulars2.GantttChart;
 
 public class Priority {
 //static resultWindow rf = new resultWindow();
-static Schedulars2 ss = new Schedulars2();
+
+    static Schedulars2 ss = new Schedulars2();
     Timer TT = new Timer();
 
     public static process getHighestPriority(List<process> pp, int n) {
@@ -105,6 +106,18 @@ static Schedulars2 ss = new Schedulars2();
                     finished.get(finished.size() - 1).endTime = counter;
                     pp.remove(pp.get(i));
                     break;
+                } else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
+                    int pr = getMaxPriority(pp, pp.size());
+                    process ppp = new process();
+                    ppp.setDuration(0);
+                    ppp.setName("NOP");
+                    ppp.setStartTime(counter);
+                    ppp.setWhenCome(counter);
+                    ppp.setPriotrity(pr + 1);
+                    ssum++;
+                    counter++;
+                    ppp.setendTime(counter);
+                    finished.add(ppp);
                 }
             }
         }
@@ -115,7 +128,7 @@ static Schedulars2 ss = new Schedulars2();
             sum += processWaitingTime;
         }
         System.out.println("average waiting time" + (double) (sum / finished.size()));
-        ss.rw.lblWaiting.setText((sum/n)+"");
+        ss.rw.lblWaiting.setText((sum / n) + "");
         return 5;
     }
 
@@ -187,11 +200,8 @@ static Schedulars2 ss = new Schedulars2();
 //        System.out.println("Average Waiting Time= " + (double)(sum / n));
 //        ss.rw.lblWaiting.setText((sum/n)+"");
 //    }
-    
-    
-
     public static int PreemptivePriority(List<process> pp, int n) {
-        ss.rw.setVisible(true);
+//        ss.rw.setVisible(true);
         Collections.sort(pp, process.getComparator(process.Parameter.priority));
         List<process> finished = new ArrayList();
         int counter = 0;
@@ -289,16 +299,16 @@ static Schedulars2 ss = new Schedulars2();
 //                            finished.add(o);
                             finished.add(p);
                             p1.setDuration(1);
-                       // p1.setendTime(counter);
-                        toBeSent.add(p1);
+                            // p1.setendTime(counter);
+                            toBeSent.add(p1);
                         }
-                    }else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)){
-                        toBeSent.get(toBeSent.size()-1).duration++;
+                    } else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
+                        toBeSent.get(toBeSent.size() - 1).duration++;
                         //toBeSent.get(toBeSent.size()-1).endTime = counter;
                     }
                     counter++;
                     pp.get(i).duration--;
-                    toBeSent.get(toBeSent.size()-1).setendTime(counter);
+                    toBeSent.get(toBeSent.size() - 1).setendTime(counter);
 
                 } else if (pp.get(i).whencome <= counter && pp.get(i).priority > priority && pp.get(0) == pp.get(i)) {
                     if (!finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
@@ -318,13 +328,23 @@ static Schedulars2 ss = new Schedulars2();
                         p1.setDuration(1);
                         //p1.setendTime(counter);
                         toBeSent.add(p1);
-                    }else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)){
-                        toBeSent.get(toBeSent.size()-1).duration++;
+                    } else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
+                        toBeSent.get(toBeSent.size() - 1).duration++;
                         //toBeSent.get(toBeSent.size()-1).endTime = counter;
                     }
                     counter++;
                     pp.get(i).duration--;
-                    toBeSent.get(toBeSent.size()-1).setendTime(counter);
+                    toBeSent.get(toBeSent.size() - 1).setendTime(counter);
+                }else if (i==pp.size()-1 && pp.get(i).whencome > counter) {
+                    process ppp = new process();
+                    ppp.setDuration(0);
+                    ppp.setName("NOP");
+                    ppp.setStartTime(counter);
+                    ppp.setWhenCome(counter);
+                    ssum++;
+                    counter++;
+                    ppp.setendTime(counter);
+                    toBeSent.add(ppp);
                 }
 //                }else if(i == pp.size()-1 && pp.get(i).whencome>counter){
 //                        int d = 0;
