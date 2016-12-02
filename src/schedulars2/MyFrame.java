@@ -154,6 +154,7 @@ public class MyFrame extends javax.swing.JFrame {
                 break;
 
         }
+         this.setVisible(false);
 //         resultWindow rs = new resultWindow();
 //         rs.setVisible(true);
 //         initComponents();

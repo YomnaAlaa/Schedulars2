@@ -153,7 +153,7 @@ public class SJF {
                     finished.add(pp.get(i));
                     finished.get(finished.size() - 1).startTime = counter;
                     counter += pp.get(i).duration;
-                    finished.get(finished.size()-1).endTime = counter;
+                    finished.get(finished.size() - 1).endTime = counter;
                     pp.remove(pp.get(i));
                     break;
                 }
@@ -198,6 +198,8 @@ public class SJF {
         int duration = getMaxDuration(pp, pp.size()) + 1;
         int index = -1;
         List<process> temp = new ArrayList<process>();
+
+        List<process> toBeSent = new ArrayList<process>();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -222,6 +224,15 @@ public class SJF {
                 p.setPriotrity(pp.get(i).priority);
                 p.setStartTime(pp.get(i).startTime);
                 p.setWhenCome(pp.get(i).whencome);
+
+                process p1 = new process();
+                p1.setDuration(pp.get(i).duration);
+                p1.setInedex(pp.get(i).index);
+                p1.setName(pp.get(i).name);
+                p1.setPriotrity(pp.get(i).priority);
+                p1.setStartTime(pp.get(i).startTime);
+                p1.setWhenCome(pp.get(i).whencome);
+
                 if (pp.get(i).whencome <= counter && pp.get(i).duration <= duration) {
                     duration = pp.get(i).duration;
                     index = pp.get(i).index;
@@ -238,8 +249,11 @@ public class SJF {
 //                            o.setName(na);
 //                            o.setInedex(in);
 //                            finished.add(o);
-                        finished.add(pp.get(i));
-                    } else if (finished.get(finished.size() - 1) != pp.get(i)) {
+                        finished.add(p);
+                        p1.setDuration(1);
+                        //p1.setendTime(counter);
+                        toBeSent.add(p1);
+                    } else if (!finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
                         if (pp.get(i).duration == finished.get(finished.size() - 1).duration && finished.get(finished.size() - 1).duration == 0) {
 //                            int d = pp.get(i).duration;
 //                            int a = pp.get(i).whencome;
@@ -253,7 +267,10 @@ public class SJF {
 //                            o.setName(na);
 //                            o.setInedex(in);
 //                            finished.add(o);
-                            finished.add(pp.get(i));
+                            finished.add(p);
+                            p1.setDuration(1);
+                            //p1.setendTime(counter);
+                            toBeSent.add(p1);
                         } else if (pp.get(i).duration < finished.get(finished.size() - 1).duration) {
 //                            int d = pp.get(i).duration;
 //                            int a = pp.get(i).whencome;
@@ -267,14 +284,21 @@ public class SJF {
 //                            o.setName(na);
 //                            o.setInedex(in);
 //                            finished.add(o);
-                            finished.add(pp.get(i));
+                            finished.add(p);
+                            p1.setDuration(1);
+                       // p1.setendTime(counter);
+                        toBeSent.add(p1);
                         }
+                    }else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)){
+                        toBeSent.get(toBeSent.size()-1).duration++;
+                        //toBeSent.get(toBeSent.size()-1).endTime = counter;
                     }
                     counter++;
                     pp.get(i).duration--;
+                    toBeSent.get(toBeSent.size()-1).setendTime(counter);
 
                 } else if (pp.get(i).whencome <= counter && pp.get(i).duration > duration && pp.get(0) == pp.get(i)) {
-                    if (finished.get(finished.size() - 1) != pp.get(i)) {
+                    if (!finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
 //                        int d = pp.get(i).duration;
 //                        int a = pp.get(i).whencome;
 //                        int p = pp.get(i).priority;
@@ -287,10 +311,17 @@ public class SJF {
 //                        o.setName(na);
 //                        o.setInedex(in);
 //                        finished.add(o);
-                         finished.add(pp.get(i));
+                        finished.add(p);
+                        p1.setDuration(1);
+                        //p1.setendTime(counter);
+                        toBeSent.add(p1);
+                    }else if (finished.get(finished.size() - 1).name.equals(pp.get(i).name)){
+                        toBeSent.get(toBeSent.size()-1).duration++;
+                        //toBeSent.get(toBeSent.size()-1).endTime = counter;
                     }
                     counter++;
                     pp.get(i).duration--;
+                    toBeSent.get(toBeSent.size()-1).setendTime(counter);
                 }
 //                }else if(i == pp.size()-1 && pp.get(i).whencome>counter){
 //                        int d = 0;
@@ -332,7 +363,8 @@ public class SJF {
 //            }
 //        }
         double sum = 0;
-        GantttChart(finished, finished.size());
+//        GantttChart(finished, finished.size());
+        GantttChart(toBeSent, toBeSent.size());
         for (int i = 0; i < n; i++) {
             int mm = temp.get(i).endTime;
             int nn = temp.get(i).duration;
