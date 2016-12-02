@@ -90,7 +90,7 @@ static Schedulars2 ss = new Schedulars2();
         return -1;
     }
 
-    public static void NonPreemptivePriority(List<process> pp, int n) {
+    public static int NonPreemptivePriority(List<process> pp, int n) {
         Collections.sort(pp, process.getComparator(process.Parameter.priority));
         List<process> finished = new ArrayList();
         int counter = 0;
@@ -108,7 +108,7 @@ static Schedulars2 ss = new Schedulars2();
                 }
             }
         }
-        GantttChart(finished, finished.size());
+        GantttChart(finished, finished.size(), 5);
         double sum = 0, processWaitingTime;
         for (int i = 0; i < finished.size(); i++) {
             processWaitingTime = abs(finished.get(i).startTime - finished.get(i).whencome);
@@ -116,6 +116,7 @@ static Schedulars2 ss = new Schedulars2();
         }
         System.out.println("average waiting time" + (double) (sum / finished.size()));
         ss.rw.lblWaiting.setText((sum/n)+"");
+        return 5;
     }
 
 //    public static void PreemptivePriority(List<process> pp, int n) {
@@ -189,7 +190,7 @@ static Schedulars2 ss = new Schedulars2();
     
     
 
-    public static void PreemptivePriority(List<process> pp, int n) {
+    public static int PreemptivePriority(List<process> pp, int n) {
         ss.rw.setVisible(true);
         Collections.sort(pp, process.getComparator(process.Parameter.priority));
         List<process> finished = new ArrayList();
@@ -366,7 +367,7 @@ static Schedulars2 ss = new Schedulars2();
 //        }
         double sum = 0;
 //        GantttChart(finished, finished.size());
-        GantttChart(toBeSent, toBeSent.size());
+        GantttChart(toBeSent, toBeSent.size(), 4);
         for (int i = 0; i < n; i++) {
             int mm = temp.get(i).endTime;
             int nn = temp.get(i).duration;
@@ -376,6 +377,7 @@ static Schedulars2 ss = new Schedulars2();
         }
         System.out.println("Average Waiting Time= " + (double) (sum / n));
         ss.rw.lblWaiting.setText((sum / n) + "");
+        return 4;
     }
 
 //    public static void PreemptivePriority(List<process> pp, int n) {

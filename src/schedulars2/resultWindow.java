@@ -14,8 +14,9 @@ public class resultWindow extends javax.swing.JFrame {
     /**
      * Creates new form resultWindow
      */
-    public resultWindow() {
-        
+    static int index;
+    public resultWindow(int index) {
+        this.index = index;
         initComponents();
     }
 
@@ -114,13 +115,14 @@ public class resultWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnotherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnotherActionPerformed
-//        MyFrame sw = new MyFrame();
-//        initComponents();
-//        sw.setVisible(true);
+        MyFrame sw = new MyFrame(index);
+        initComponents();
+        sw.setVisible(true);
         
     }//GEN-LAST:event_btnAnotherActionPerformed
 
     private void btnSchedularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSchedularActionPerformed
+        this.setVisible(false);
         StartWindow sw = new StartWindow();
         sw.setVisible(true);
     }//GEN-LAST:event_btnSchedularActionPerformed
@@ -155,7 +157,7 @@ public class resultWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new resultWindow().setVisible(true);
+                new resultWindow(index).setVisible(true);
             }
         });
     }

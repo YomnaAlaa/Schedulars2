@@ -18,6 +18,7 @@ public class MyFrame extends javax.swing.JFrame {
      * Creates new form MyFrame
      */
     int index;
+
     public MyFrame(int index) {
         this.index = index;
         initComponents();
@@ -131,14 +132,14 @@ public class MyFrame extends javax.swing.JFrame {
     Schedulars2 ss = new Schedulars2();
     StartWindow sw = new StartWindow();
     private void btnResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultActionPerformed
-        
-         switch (index) {
+
+        switch (index) {
             case 1:
                 ss.fs.FCFS(ss.p, ss.p.size());
                 break;
             case 2:
                 ss.sj.PreemptiveSJF(ss.p, ss.p.size());
-                
+
                 break;
             case 3:
                 ss.sj.NonPreemptiveSJF(ss.p, ss.p.size());
@@ -154,47 +155,56 @@ public class MyFrame extends javax.swing.JFrame {
                 break;
 
         }
-         this.setVisible(false);
+        this.setVisible(false);
 //         resultWindow rs = new resultWindow();
 //         rs.setVisible(true);
 //         initComponents();
     }//GEN-LAST:event_btnResultActionPerformed
     boolean flag = true;
+    boolean isNew = false;
     private void btnAddProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProcessActionPerformed
+        if (isNew == true) {
+            ss.p.clear();
+            ss.i = 0;
+            ss.q = 0;
+            ss.i = 0;
+            ss.ppp = new process();
+        }
+        isNew = false;
         String s1 = txtArrival.getText();
         String s2 = txtDuration.getText();
         String s3 = txtPriority.getText();
         String s4 = txtQuantity.getText();
-        if ((txtArrival.getText().equals("")&&txtArrival.isEnabled()) || txtDuration.getText().equals("") || (txtPriority.getText().equals("")&&txtPriority.isEnabled()) || (txtQuantity.getText().equals("")&&txtQuantity.isEnabled()) ){
+        if ((txtArrival.getText().equals("") && txtArrival.isEnabled()) || txtDuration.getText().equals("") || (txtPriority.getText().equals("") && txtPriority.isEnabled()) || (txtQuantity.getText().equals("") && txtQuantity.isEnabled())) {
             JOptionPane.showMessageDialog(new JFrame(), "There are some empty text boxes");
             return;
         }
         ss.i++;
         ss.ppp = new process();
         ss.ppp.setName("p".concat(ss.i + ""));
-        ss.ppp.setInedex(ss.i-1);
+        ss.ppp.setInedex(ss.i - 1);
         System.out.println("Process" + (ss.i + 1));
         System.out.println("Enter the Duration of the process");
         ss.ppp.setDuration(Integer.parseInt(txtDuration.getText()));
 
         System.out.println("Enter the time this process comes");
-        
-        if (index==4 || index==5) {
+
+        if (index == 4 || index == 5) {
             System.out.println("Enter the priority of each process");
             ss.ppp.setPriotrity(Integer.parseInt(txtPriority.getText()));
-        }else {
+        } else {
             ss.ppp.setPriotrity(0);
         }
-        if (index==6) {
+        if (index == 6) {
             System.out.println("Enter q");
             //q = sc.nextInt();
-            
-            if (flag==true){
+
+            if (flag == true) {
                 ss.q = Integer.parseInt(txtQuantity.getText());
                 txtQuantity.setEditable(false);
                 flag = false;
             }
-        }else{
+        } else {
             ss.ppp.setWhenCome(Integer.parseInt(txtArrival.getText()));
         }
         ss.p.add(ss.ppp);

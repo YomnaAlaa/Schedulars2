@@ -82,6 +82,7 @@ int index ;
     private void btnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartActionPerformed
         
         MyFrame ff = new MyFrame(jCompoBox.getSelectedIndex());
+        ff.isNew = true;
         ff.setVisible(true);
          if (this.jCompoBox.getSelectedItem().equals("Priority Preemptive") || this.jCompoBox.getSelectedItem().equals("Priority Non-Preemptive")) {
                     ff.txtPriority.setEnabled(true);

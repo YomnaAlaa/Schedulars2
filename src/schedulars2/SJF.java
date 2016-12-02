@@ -140,7 +140,7 @@ public class SJF {
 //        }
 //        System.out.println("average waiting time" + (sum/n));
 //    }
-    public static void NonPreemptiveSJF(List<process> pp, int n) {
+    public static int NonPreemptiveSJF(List<process> pp, int n) {
         ss.rw.setVisible(true);
         Collections.sort(pp, process.getComparator(process.Parameter.duration));
         List<process> finished = new ArrayList();
@@ -159,7 +159,7 @@ public class SJF {
                 }
             }
         }
-        GantttChart(finished, finished.size());
+        GantttChart(finished, finished.size(),3);
         int sum = 0, processWaitingTime;
         for (int i = 0; i < finished.size(); i++) {
             processWaitingTime = abs(finished.get(i).startTime - finished.get(i).whencome);
@@ -167,6 +167,7 @@ public class SJF {
         }
         System.out.println("average waiting time" + (sum / finished.size()));
         ss.rw.lblWaiting.setText((sum / finished.size()) + "");
+        return 3;
     }
 
     public static boolean swap(process x, process y) {
@@ -187,7 +188,7 @@ public class SJF {
         return max;
     }
 
-    public static void PreemptiveSJF(List<process> pp, int n) {
+    public static int PreemptiveSJF(List<process> pp, int n) {
         ss.rw.setVisible(true);
         Collections.sort(pp, process.getComparator(process.Parameter.duration));
         List<process> finished = new ArrayList();
@@ -364,7 +365,7 @@ public class SJF {
 //        }
         double sum = 0;
 //        GantttChart(finished, finished.size());
-        GantttChart(toBeSent, toBeSent.size());
+        GantttChart(toBeSent, toBeSent.size(),2);
         for (int i = 0; i < n; i++) {
             int mm = temp.get(i).endTime;
             int nn = temp.get(i).duration;
@@ -374,6 +375,7 @@ public class SJF {
         }
         System.out.println("Average Waiting Time= " + (double) (sum / n));
         ss.rw.lblWaiting.setText((sum / n) + "");
+        return 2;
     }
 
 //    public static void PreemptiveSJF(List<process> pp, int n) {

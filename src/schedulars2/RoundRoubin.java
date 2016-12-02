@@ -56,7 +56,7 @@ public class RoundRoubin {
         return summ;
     }
 
-    public static void RoundRobin(List<process> pp, int n, int q) {
+    public static int RoundRobin(List<process> pp, int n, int q) {
         int summ = sum(pp, n);
         int counter = 0;
         List<process> li = new ArrayList<process>();
@@ -144,8 +144,9 @@ public class RoundRoubin {
             sum += waitingTime;
         }
 
-        GantttChart(li, li.size());
+        GantttChart(li, li.size(),6);
         System.out.println("Average Waiting Time= " + (sum / n));
         ss.rw.lblWaiting.setText((sum / n) + "");
+        return 6;
     }
 }

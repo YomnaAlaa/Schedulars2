@@ -29,7 +29,7 @@ public class Schedulars2 {
     public static Priority pr = new Priority();
     public static SJF sj = new SJF();
     public static RoundRoubin rr = new RoundRoubin();
-    static resultWindow rw = new resultWindow();
+    static resultWindow rw;
 
 //    public static void GantttChart(List<process> pp, int n) {
 //        
@@ -47,9 +47,11 @@ public class Schedulars2 {
 //        }
 //
 //    }
-    public static void GantttChart(List<process> pp, int n) {
+    public static void GantttChart(List<process> pp, int n, int index) {
+        
         List<String> processes = new ArrayList();
         List<String> timer = new ArrayList();
+        rw = new resultWindow(index);
         rw.setVisible(true);
         processes.add("|");
         for (int i = 0; i < n; i++) {

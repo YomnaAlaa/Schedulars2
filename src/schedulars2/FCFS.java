@@ -35,14 +35,14 @@ public class FCFS {
     static Schedulars2 ss = new Schedulars2();
 
     
-    public static void FCFS(List<process> pp, int n) {
+    public static int FCFS(List<process> pp, int n) {
         Collections.sort(pp, process.getComparator(process.Parameter.whencome));
         int counter =0;
         for (int i=0;i<pp.size();i++){
             counter += pp.get(i).duration;
             pp.get(i).endTime = counter;
         }
-        GantttChart(pp, pp.size());
+        GantttChart(pp, pp.size(),1);
         
         int sum = 0;
         pp.get(0).startTime = pp.get(0).whencome;
@@ -56,5 +56,6 @@ public class FCFS {
         }
         System.out.println("average waiting time" + (sum/pp.size()));
         ss.rw.lblWaiting.setText((sum/pp.size())+"");
+        return 1;
     }
 }
