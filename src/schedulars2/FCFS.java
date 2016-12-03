@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package schedulars2;
 
 import static java.lang.Math.abs;
@@ -11,27 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import static schedulars2.Schedulars2.GantttChart;
 
-/**
- *
- * @author YOMNA
- */
 public class FCFS {
 
-    //    public static void FCFS(int[] duration, int[] whencome, int n) {
-//        LinkedList process = new LinkedList();
-//        int[] index = new int[n];
-//        int min;
-//        int max = getMax(whencome, n);
-//        for (int i = 0; i < n; i++) {
-//            min = getMinIndex(whencome, n);
-//            int ff = duration[min];
-//            process.addLast(ff);
-//            index[i] = min + 1;
-//            whencome[min] += (max + 1);
-//        }
-//        GantttChart(process, index, n);
-//    }
-    // static resultWindow rf;
     public static int sum(List<process> pp, int n) {
         int summ = 0;
         for (int i = 0; i < n; i++) {
@@ -42,17 +19,33 @@ public class FCFS {
     static Schedulars2 ss = new Schedulars2();
     
     static List<process> temp = new ArrayList<process>();
+    static List<process> toBeShown = new ArrayList<process>();
     public static void writeLabels(){
-    for (int i = 0; i < temp.size(); i++) {
-            ss.rw.lblNames.setText(ss.rw.lblNames.getText() + temp.get(i).name + "   ");
+    for (int i = 0; i < toBeShown.size(); i++) {
+            ss.rw.lblNames.setText(ss.rw.lblNames.getText() + toBeShown.get(i).name + "   ");
         }
-        for (int i = 0; i < temp.size(); i++) {
-            ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + temp.get(i).duration + "   ");
+        for (int i = 0; i < toBeShown.size(); i++) {
+            ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + toBeShown.get(i).duration + "      ");
         }
         
     }
 
     public static int FCFS(List<process> pp, int n) {
+        for (int i = 0; i < n; i++) {
+            int d = pp.get(i).duration;
+            int a = pp.get(i).whencome;
+            int p = pp.get(i).priority;
+            int in = pp.get(i).index;
+            String na = pp.get(i).name;
+            process o = new process();
+            o.setDuration(d);
+            o.setWhenCome(a);
+            o.setPriotrity(p);
+            o.setName(na);
+            o.setInedex(in);
+
+            toBeShown.add(o);
+        }
         int counter1 = 0;
         int ssum = sum(pp, n);
         int j = 0;
@@ -92,19 +85,14 @@ public class FCFS {
                 j++;
             }
         }
-//        int counter = 0;
-//        for (int i = 0; i < pp.size(); i++) {
-//            counter += pp.get(i).duration;
-//            pp.get(i).endTime = counter;
-//        }
         GantttChart(finished, finished.size(), 1);
 
-        int sum = 0;
+        double sum = 0;
         pp.get(0).startTime = pp.get(0).whencome;
         for (int i = 1; i < pp.size(); i++) {
             pp.get(i).startTime = pp.get(i - 1).startTime + pp.get(i - 1).duration;
         }
-        int processWaitingTime;
+        double processWaitingTime;
         for (int i = 0; i < pp.size(); i++) {
             processWaitingTime = abs(pp.get(i).startTime - pp.get(i).whencome);
             sum += processWaitingTime;

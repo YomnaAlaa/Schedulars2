@@ -7,7 +7,6 @@ import static schedulars2.Schedulars2.GantttChart;
 public class RoundRoubin {
 
     static Schedulars2 ss = new Schedulars2();
-    //static resultWindow rf = new resultWindow();
 
     public static int getMinNum(int[] arr, int n) {
         int min = arr[0];
@@ -57,18 +56,35 @@ public class RoundRoubin {
     }
     static List<process> temp = new ArrayList<process>();
     
+    static List<process> toBeShown = new ArrayList<process>();
+    
     public static void writeLabels(int q){
-    for (int i = 0; i < temp.size(); i++) {
-            ss.rw.lblNames.setText(ss.rw.lblNames.getText() + temp.get(i).name + "   ");
+    for (int i = 0; i < toBeShown.size(); i++) {
+            ss.rw.lblNames.setText(ss.rw.lblNames.getText() + toBeShown.get(i).name + "   ");
         }
-        for (int i = 0; i < temp.size(); i++) {
-            ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + temp.get(i).duration + "   ");
+        for (int i = 0; i < toBeShown.size(); i++) {
+            ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + toBeShown.get(i).duration + "      ");
         }
             ss.rw.lblQ.setText(q + "");
         
     }
 
     public static int RoundRobin(List<process> pp, int n, int q) {
+        for (int i = 0; i < n; i++) {
+            int d = pp.get(i).duration;
+            int a = pp.get(i).whencome;
+            int p = pp.get(i).priority;
+            int in = pp.get(i).index;
+            String na = pp.get(i).name;
+            process o = new process();
+            o.setDuration(d);
+            o.setWhenCome(a);
+            o.setPriotrity(p);
+            o.setName(na);
+            o.setInedex(in);
+
+            toBeShown.add(o);
+        }
         int summ = sum(pp, n);
         int counter = 0;
         List<process> li = new ArrayList<process>();
@@ -88,13 +104,11 @@ public class RoundRoubin {
             temp.add(o);
         }
         double sum = 0;
-        //double waitingTime[] = new double[n];
         double averageWaitingTime = 0;
         double waitingTime = 0;
 
         while (summ > counter) {
             for (int i = 0; i < pp.size(); i++) {
-                //process p = pp.get(i);
                 process p = new process();
                 p.setDuration(pp.get(i).duration);
                 p.setInedex(pp.get(i).index);
@@ -107,13 +121,7 @@ public class RoundRoubin {
                 if (p.duration <= q) {
                     du = p.duration;
                     li.add(p);
-                    //li.get(li.size() - 1).startTime = counter;
-                    //waitingTime[li.get(i).index] += abs(li.get(i).startTime - li.get(i).whencome);
-                    //li.get(i).waitingTime+=waitingTime;
-                    //sum+=waitingTime;
-                    //li.get(i).setWhenCome(counter + p.duration);
                     counter += p.duration;
-                    //li.get(li.size() - 1).endTime = counter;
                     pp.get(i).duration = 0;
                     li.get(li.size() - 1).setDuration(du);
                     li.get(li.size() - 1).setendTime(counter);
@@ -123,15 +131,9 @@ public class RoundRoubin {
                     du=q;
                     pp.get(i).duration -= q;
                     li.add(p);
-                    //li.get(li.size() - 1).startTime = counter;
-                    //waitingTime[li.get(i).index] += abs(li.get(i).startTime - li.get(i).whencome);
-                    //li.get(i).waitingTime += waitingTime;
-                    //sum+=waitingTime;
-                    //li.get(i).setWhenCome(counter + q);
                     counter += q;
                     li.get(li.size() - 1).setDuration(du);
                     li.get(li.size() - 1).setendTime(counter);
-                    //li.get(li.size() - 1).endTime = counter;
 
                 }
             }
@@ -143,11 +145,6 @@ public class RoundRoubin {
             }
 
         }
-//        List<process> temp = new ArrayList();
-//        for (int i = 0; i < li.size(); i++) {
-//            temp.add(li.get(i));
-//        }
-//        Collections.sort(temp, process.getComparator(process.Parameter.name));
         for (int i = 0; i < n; i++) {
             int mm = temp.get(i).endTime;
             int nn = temp.get(i).duration;
