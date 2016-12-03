@@ -278,8 +278,7 @@ public class SJF {
 //                    toBeSent.get(toBeSent.size() - 1).setendTime(counter);
 //                }
 //                else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
-//                    if (toBeSent.size()>0 && (toBeSent.get(toBeSent.size() - 1).name.equals(pp.get(toBeSent.get(toBeSent.size() - 1).index).name) &&pp.get(toBeSent.get(toBeSent.size() - 1).index).duration > 0)) {
-//                        break;
+//                    if (toBeSent.size()>0 && pp.get(toBeSent.get(toBeSent.size() - 1).index).duration > 0){
 //                    } else {
 //                        process ppp = new process();
 //                        ppp.setDuration(0);

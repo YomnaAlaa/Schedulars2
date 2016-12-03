@@ -270,18 +270,23 @@ public class Priority {
                     counter++;
                     pp.get(i).duration--;
                     toBeSent.get(toBeSent.size() - 1).setendTime(counter);
-                } 
-//                else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
-//                    process ppp = new process();
-//                    ppp.setDuration(0);
-//                    ppp.setName("NOP");
-//                    ppp.setStartTime(counter);
-//                    ppp.setWhenCome(counter);
-//                    ssum++;
-//                    counter++;
-//                    ppp.setendTime(counter);
-//                    toBeSent.add(ppp);
-//                }
+                }
+                 else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
+                    if (toBeSent.size()>0 && (toBeSent.get(toBeSent.size() - 1).name.equals(pp.get(toBeSent.get(toBeSent.size() - 1).index).name) &&pp.get(toBeSent.get(toBeSent.size() - 1).index).duration > 0)) {
+                        break;
+                    } else {
+                        process ppp = new process();
+                        ppp.setDuration(0);
+                        ppp.setName("NOP");
+                        ppp.setStartTime(counter);
+                        ppp.setWhenCome(counter);
+                        ssum++;
+                        counter++;
+                        ppp.setendTime(counter);
+                        //finished.add(ppp);
+                        toBeSent.add(ppp);
+                    }
+                }
 //                }else if(i == pp.size()-1 && pp.get(i).whencome>counter){
 //                        int d = 0;
 //                        int a = counter;

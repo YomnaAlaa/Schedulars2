@@ -26,45 +26,6 @@ public class process {
         y = temp;
     }
 
-//    static public void SortArrivalTime(List<process> pp, int start, int end) {
-//        if (start >= end) {
-//            return;
-//        }
-//        int left = start;
-//        int right = end-1;
-//        int pivot = start;
-//        while (left < right) {
-//            while (pp.get(left).whencome < pp.get(pivot).whencome) {
-//                ++left;
-//            }
-//            while (pp.get(right).whencome > pp.get(pivot).whencome) {
-//                --right;
-//            }
-//            if (left < right) {
-//                swap(pp.get(left).whencome, pp.get(right).whencome);
-//            }
-//            SortArrivalTime(pp, start, left-1);
-//            SortArrivalTime(pp, left, end-1);
-//        }
-//    }
-//    public static void SortArrivalTime(List<process> pp) {
-//        for (int j = 1; j < pp.size(); j++) {
-//            int key = pp.get(j).whencome;
-//            int i = j - 1;
-//            while (i >= 0 && pp.get(i).whencome > key) {
-//                pp.get(i + 1).whencome = pp.get(i).whencome;
-//                i--;
-//            }
-//            pp.get(i+1).whencome = key;
-//        }
-//    }
-//    static public void SortDurations() {
-//
-//    }
-//
-//    static public void SortPriority() {
-//
-//    }
     enum Parameter {
 
         duration, whencome, priority, name
