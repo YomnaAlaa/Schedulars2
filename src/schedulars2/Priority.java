@@ -107,7 +107,9 @@ public class Priority {
     }
 
     public static int NonPreemptivePriority(List<process> pp, int n) {
+        toBeShown = new ArrayList();
         for (int i = 0; i < pp.size(); i++) {
+//            toBeShown = new ArrayList();
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
             int p = pp.get(i).priority;
@@ -119,7 +121,6 @@ public class Priority {
             o.setPriotrity(p);
             o.setName(na);
             o.setInedex(in);
-
             toBeShown.add(o);
         }
         Collections.sort(pp, process.getComparator(process.Parameter.priority));
@@ -127,6 +128,7 @@ public class Priority {
         int counter = 0;
         List<process> temp1 = new ArrayList();
         int ssum = sum(pp, n);
+        temp = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -177,8 +179,10 @@ public class Priority {
         writeLabels();
         return 5;
     }
-
+    int cc = 0;
     public static int PreemptivePriority(List<process> pp, int n) {
+        
+        toBeShown = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -202,6 +206,7 @@ public class Priority {
         int index = -1;
 
         List<process> toBeSent = new ArrayList<process>();
+        temp = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -270,9 +275,8 @@ public class Priority {
                     counter++;
                     pp.get(i).duration--;
                     toBeSent.get(toBeSent.size() - 1).setendTime(counter);
-                }
-                 else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
-                    if (toBeSent.size()>0 && (toBeSent.get(toBeSent.size() - 1).name.equals(pp.get(toBeSent.get(toBeSent.size() - 1).index).name) &&pp.get(toBeSent.get(toBeSent.size() - 1).index).duration > 0)) {
+                } else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
+                    if (toBeSent.size() > 0 && (toBeSent.get(toBeSent.size() - 1).name.equals(pp.get(toBeSent.get(toBeSent.size() - 1).index).name) && pp.get(toBeSent.get(toBeSent.size() - 1).index).duration > 0)) {
                         break;
                     } else {
                         process ppp = new process();

@@ -1,4 +1,3 @@
-
 package schedulars2;
 
 import static java.lang.Math.abs;
@@ -17,20 +16,22 @@ public class FCFS {
         return summ;
     }
     static Schedulars2 ss = new Schedulars2();
-    
+
     static List<process> temp = new ArrayList<process>();
     static List<process> toBeShown = new ArrayList<process>();
-    public static void writeLabels(){
-    for (int i = 0; i < toBeShown.size(); i++) {
+
+    public static void writeLabels() {
+        for (int i = 0; i < toBeShown.size(); i++) {
             ss.rw.lblNames.setText(ss.rw.lblNames.getText() + toBeShown.get(i).name + "   ");
         }
         for (int i = 0; i < toBeShown.size(); i++) {
             ss.rw.lblDurations.setText(ss.rw.lblDurations.getText() + toBeShown.get(i).duration + "      ");
         }
-        
+
     }
 
     public static int FCFS(List<process> pp, int n) {
+        toBeShown = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -50,6 +51,7 @@ public class FCFS {
         int ssum = sum(pp, n);
         int j = 0;
         List<process> finished = new ArrayList();
+        temp = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;

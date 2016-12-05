@@ -69,7 +69,8 @@ public class RoundRoubin {
         
     }
 
-    public static int RoundRobin(List<process> pp, int n, int q) {
+    public static int RoundRobin(List<process> pp, int n, int q) {        
+        toBeShown = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -89,6 +90,7 @@ public class RoundRoubin {
         int counter = 0;
         List<process> li = new ArrayList<process>();
         List<process> temp = new ArrayList<process>();
+        temp = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;

@@ -86,6 +86,7 @@ public class SJF {
 
 
     public static int NonPreemptiveSJF(List<process> pp, int n) {
+        toBeShown = new ArrayList();
         for (int i = 0; i < pp.size(); i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -104,6 +105,7 @@ public class SJF {
         Collections.sort(pp, process.getComparator(process.Parameter.duration));
         List<process> finished = new ArrayList();
         int counter = 0;
+        temp = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -175,6 +177,7 @@ public class SJF {
     }
 
     public static int PreemptiveSJF(List<process> pp, int n) {
+        toBeShown = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -197,6 +200,7 @@ public class SJF {
         int duration = getMaxDuration(pp, pp.size()) + 1;
         int index = -1;
         List<process> toBeSent = new ArrayList<process>();
+        temp = new ArrayList();
         for (int i = 0; i < n; i++) {
             int d = pp.get(i).duration;
             int a = pp.get(i).whencome;
@@ -257,7 +261,8 @@ public class SJF {
                     pp.get(i).duration--;
                     toBeSent.get(toBeSent.size() - 1).setendTime(counter);
 
-                } else if (pp.get(i).whencome <= counter && pp.get(i).duration > duration && pp.get(0) == pp.get(i)) {
+                } 
+                else if (pp.get(i).whencome <= counter && pp.get(i).duration > duration && pp.get(0) == pp.get(i)) {
                     if (!finished.get(finished.size() - 1).name.equals(pp.get(i).name)) {
                         finished.add(p);
                         p1.setDuration(1);
@@ -277,21 +282,21 @@ public class SJF {
 //                    pp.get(i).duration--;
 //                    toBeSent.get(toBeSent.size() - 1).setendTime(counter);
 //                }
-//                else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
-//                    if (toBeSent.size()>0 && pp.get(toBeSent.get(toBeSent.size() - 1).index).duration > 0){
-//                    } else {
-//                        process ppp = new process();
-//                        ppp.setDuration(0);
-//                        ppp.setName("NOP");
-//                        ppp.setStartTime(counter);
-//                        ppp.setWhenCome(counter);
-//                        ssum++;
-//                        counter++;
-//                        ppp.setendTime(counter);
-//                        //finished.add(ppp);
-//                        toBeSent.add(ppp);
-//                    }
-//                }
+                else if (i == pp.size() - 1 && pp.get(i).whencome > counter) {
+                    if (toBeSent.size()>0 && pp.get(toBeSent.get(toBeSent.size() - 1).index).duration > 0){
+                    } else {
+                        process ppp = new process();
+                        ppp.setDuration(0);
+                        ppp.setName("NOP");
+                        ppp.setStartTime(counter);
+                        ppp.setWhenCome(counter);
+                        ssum++;
+                        counter++;
+                        ppp.setendTime(counter);
+                        //finished.add(ppp);
+                        toBeSent.add(ppp);
+                    }
+                }
 
 
                 if (pp.get(i).duration == 0) {
